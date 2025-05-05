@@ -83,11 +83,11 @@ shallowClasses
   -> Config m
 shallowClasses { suite, test, check } =
   { typeSuite: const identity
-  , classSuite: \{ typeName, className }
-      -> suite (className <> " " <> typeName <> " laws")
-  , lawTest: \( lawName, lawDescription )
+  , classSuite: (\{ typeName, className }
+      -> suite (className <> " " <> typeName <> " laws"))
+  , lawTest: (\( lawName, lawDescription )
       -> test (lawName <> " law: " <> lawDescription)
-         <<< check
+         <<< check)
   }
 
 checkLaws :: String -> Effect Unit -> Effect Unit
