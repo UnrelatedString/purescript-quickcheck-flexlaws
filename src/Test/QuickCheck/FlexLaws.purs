@@ -4,7 +4,9 @@ module Test.QuickCheck.FlexLaws
   , Config
   , ClassSuite
   , LawTest
+  , runClassSuite
   , checkLaws
+  , vanilla
   , A
   , B
   , C
@@ -14,6 +16,7 @@ module Test.QuickCheck.FlexLaws
 
 import Prelude
 import Data.Enum (class Enum, class BoundedEnum)
+import Data.Traversable (for_)
 import Effect (Effect)
 import Effect.Console (log)
 import Test.QuickCheck
@@ -24,9 +27,12 @@ import Test.QuickCheck
   )
 
 -- don't even need ReaderT! just the function monad
+-- ...except no that would just discard the monadic stuff it's supposed to be doing ;_;
 
 type FlexSuite :: forall k. k -> Type
-type FlexSuite a = forall m. Monad m => Config m -> m Unit
+type FlexSuite a = forall m. Monad m => SuiteContext m -> m Unit
+
+data SuiteContext m = SuiteContext String (Config m)
 
 type Config m =
   { check :: Checker (m Unit)
@@ -48,7 +54,15 @@ data ClassSuite = ClassSuite String (Array LawTest)
 
 data LawTest = LawTest String String (forall a. Checker a -> a)
 
--- ...I hope monomorphization doesn't kill me if I try just using (#) in front of everything
+-- ...I hope inference doesn't kill me if I try just using (#) in front of everything
+
+runClassSuite :: forall a. ClassSuite -> FlexSuite a
+runClassSuite (ClassSuite className laws) (SuiteContext typeName config) = do
+  config.classSuite { typeName, className } do
+    for_ laws \(LawTest lawName lawDescription invertedExistentialTestable) ->
+      config.lawTest { typeName, className, lawName, lawDescription } do
+        invertedExistentialTestable config.check
+
 
 -- | A `Config` emulating the behavior of `quickcheck-laws`.
 vanilla :: Config Effect
@@ -73,6 +87,7 @@ checkLaws typeName laws = do
 -- -- like yeah it does mean you're all but guaranteed to hit edge cases but
 -- actually yeah no this should just straight up be polymorphic like
 -- if you're making this whole framework why NOT cover all your bases yknow
+-- also maybe days of the week instead of heavenly stems lol.
 
 newtype A = A Ordering
 
