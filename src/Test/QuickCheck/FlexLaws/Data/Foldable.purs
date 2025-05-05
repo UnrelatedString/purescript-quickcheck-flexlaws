@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.Foldable where
+module Test.QuickCheck.FlexLaws.Data.Foldable where
 
 import Prelude
 
@@ -8,7 +8,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B)
+import Test.QuickCheck.FlexLaws (A, B)
 import Type.Proxy (Proxy)
 
 

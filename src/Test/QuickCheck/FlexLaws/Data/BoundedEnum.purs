@@ -1,5 +1,5 @@
 
-module Test.QuickCheck.Laws.Data.BoundedEnum where
+module Test.QuickCheck.FlexLaws.Data.BoundedEnum where
 
 import Prelude
 

@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Applicative where
+module Test.QuickCheck.FlexLaws.Control.Applicative where
 
 import Prelude
 
@@ -9,7 +9,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B, C)
+import Test.QuickCheck.FlexLaws (A, B, C)
 import Type.Proxy (Proxy)
 
 -- | - Identity: `(pure identity) <*> v = v`

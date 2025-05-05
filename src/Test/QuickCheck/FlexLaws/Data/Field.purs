@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.Field where
+module Test.QuickCheck.FlexLaws.Data.Field where
 
 import Prelude
 

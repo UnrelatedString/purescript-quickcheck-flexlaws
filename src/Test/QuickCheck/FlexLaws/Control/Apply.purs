@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Apply where
+module Test.QuickCheck.FlexLaws.Control.Apply where
 
 import Prelude
 
@@ -8,7 +8,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B, C)
+import Test.QuickCheck.FlexLaws (A, B, C)
 import Type.Proxy (Proxy)
 
 -- | - Associative composition: `(<<<) <$> f <*> g <*> h = f <*> (g <*> h)`

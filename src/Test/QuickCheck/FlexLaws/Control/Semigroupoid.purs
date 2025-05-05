@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Semigroupoid where
+module Test.QuickCheck.FlexLaws.Control.Semigroupoid where
 
 import Prelude
 
@@ -8,7 +8,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (B, C, D, E)
+import Test.QuickCheck.FlexLaws (B, C, D, E)
 import Type.Proxy (Proxy)
 
 -- | - Associativity: `p <<< (q <<< r) = (p <<< q) <<< r`

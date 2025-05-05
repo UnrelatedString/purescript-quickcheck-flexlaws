@@ -4,9 +4,9 @@ import Prelude
 
 import Data.Identity (Identity)
 import Effect (Effect)
-import Test.QuickCheck.Laws (A, checkLaws)
-import Test.QuickCheck.Laws.Control as Control
-import Test.QuickCheck.Laws.Data as Data
+import Test.QuickCheck.FlexLaws (A, checkLaws)
+import Test.QuickCheck.FlexLaws.Control as Control
+import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
 checkIdentity ∷ Effect Unit

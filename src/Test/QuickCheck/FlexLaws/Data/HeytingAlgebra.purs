@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.HeytingAlgebra where
+module Test.QuickCheck.FlexLaws.Data.HeytingAlgebra where
 
 import Prelude
 

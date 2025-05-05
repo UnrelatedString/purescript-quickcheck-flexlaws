@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Alternative where
+module Test.QuickCheck.FlexLaws.Control.Alternative where
 
 import Prelude
 
@@ -11,7 +11,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B)
+import Test.QuickCheck.FlexLaws (A, B)
 import Type.Proxy (Proxy)
 
 -- | - Distributivity: `(f <|> g) <*> x == (f <*> x) <|> (g <*> x)`

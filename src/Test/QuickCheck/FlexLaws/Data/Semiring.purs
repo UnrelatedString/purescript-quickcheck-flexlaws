@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.Semiring where
+module Test.QuickCheck.FlexLaws.Data.Semiring where
 
 import Prelude
 

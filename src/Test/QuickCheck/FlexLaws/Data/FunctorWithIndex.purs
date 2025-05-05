@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.FunctorWithIndex where
+module Test.QuickCheck.FlexLaws.Data.FunctorWithIndex where
 
 import Prelude
 
@@ -9,7 +9,7 @@ import Effect.Console (log)
 import Test.QuickCheck (class Coarbitrary, arbitrary, quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B)
+import Test.QuickCheck.FlexLaws (A, B)
 import Type.Proxy (Proxy)
 
 -- | - Identity: `mapWithIndex (\_ a → a) = identity`

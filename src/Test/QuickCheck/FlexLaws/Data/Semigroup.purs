@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.Semigroup where
+module Test.QuickCheck.FlexLaws.Data.Semigroup where
 
 import Prelude
 

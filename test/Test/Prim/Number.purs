@@ -4,8 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import Test.QuickCheck.Arbitrary (class Coarbitrary, class Arbitrary)
-import Test.QuickCheck.Laws (checkLaws)
-import Test.QuickCheck.Laws.Data as Data
+import Test.QuickCheck.FlexLaws (checkLaws)
+import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
 checkNumber ∷ Effect Unit

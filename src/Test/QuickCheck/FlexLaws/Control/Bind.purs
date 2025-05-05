@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Bind where
+module Test.QuickCheck.FlexLaws.Control.Bind where
 
 import Prelude
 
@@ -8,7 +8,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A)
+import Test.QuickCheck.FlexLaws (A)
 import Type.Proxy (Proxy)
 
 -- | - Associativity: `(x >>= f) >>= g = x >>= (\k → f k >>= g)`

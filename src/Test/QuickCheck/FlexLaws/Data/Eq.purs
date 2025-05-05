@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.Eq where
+module Test.QuickCheck.FlexLaws.Data.Eq where
 
 import Prelude
 

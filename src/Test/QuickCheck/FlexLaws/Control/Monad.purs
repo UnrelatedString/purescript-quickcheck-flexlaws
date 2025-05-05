@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Monad where
+module Test.QuickCheck.FlexLaws.Control.Monad where
 
 import Prelude
 
@@ -7,7 +7,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A)
+import Test.QuickCheck.FlexLaws (A)
 import Type.Proxy (Proxy)
 
 -- | - Left Identity: `pure x >>= f = f x`

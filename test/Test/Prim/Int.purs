@@ -4,8 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import Test.QuickCheck.Gen (chooseInt)
-import Test.QuickCheck.Laws (checkLaws)
-import Test.QuickCheck.Laws.Data as Data
+import Test.QuickCheck.FlexLaws (checkLaws)
+import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
 checkInt ∷ Effect Unit

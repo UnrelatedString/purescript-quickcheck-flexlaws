@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.BooleanAlgebra where
+module Test.QuickCheck.FlexLaws.Data.BooleanAlgebra where
 
 import Prelude
 

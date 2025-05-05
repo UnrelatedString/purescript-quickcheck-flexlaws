@@ -1,5 +1,5 @@
-module Test.QuickCheck.Laws
-  ( module Test.QuickCheck.Laws
+module Test.QuickCheck.FlexLaws
+  ( module Test.QuickCheck.FlexLaws
   ) where
 
 import Prelude

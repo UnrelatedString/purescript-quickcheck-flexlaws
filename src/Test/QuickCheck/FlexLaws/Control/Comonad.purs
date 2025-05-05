@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Control.Comonad where
+module Test.QuickCheck.FlexLaws.Control.Comonad where
 
 import Prelude
 
@@ -10,7 +10,7 @@ import Effect.Console (log)
 import Test.QuickCheck (quickCheck')
 import Test.QuickCheck.Arbitrary (class Arbitrary, class Coarbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (A, B)
+import Test.QuickCheck.FlexLaws (A, B)
 import Type.Proxy (Proxy)
 
 -- | - Left Identity: `extract <<= x = x`

@@ -3,8 +3,8 @@ module Test.Prim.String where
 import Prelude
 
 import Effect (Effect)
-import Test.QuickCheck.Laws (checkLaws)
-import Test.QuickCheck.Laws.Data as Data
+import Test.QuickCheck.FlexLaws (checkLaws)
+import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
 checkString ∷ Effect Unit

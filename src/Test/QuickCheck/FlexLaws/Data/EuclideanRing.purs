@@ -1,4 +1,4 @@
-module Test.QuickCheck.Laws.Data.EuclideanRing where
+module Test.QuickCheck.FlexLaws.Data.EuclideanRing where
 
 import Prelude
 
