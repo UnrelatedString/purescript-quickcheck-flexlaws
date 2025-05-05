@@ -9,7 +9,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkTuple ∷ Effect Unit
+checkTuple :: Effect Unit
 checkTuple = checkLaws "Tuple" do
   Data.checkEq prxTuple
   Data.checkOrd prxTuple
@@ -28,6 +28,6 @@ checkTuple = checkLaws "Tuple" do
   Control.checkExtend prx2Tuple
   Control.checkComonad prx2Tuple
   where
-  prxTuple = Proxy ∷ Proxy (Tuple A B)
-  prx2Tuple = Proxy ∷ Proxy (Tuple C)
-  prx3Tuple = Proxy ∷ Proxy Tuple
+  prxTuple = Proxy :: Proxy (Tuple A B)
+  prx2Tuple = Proxy :: Proxy (Tuple C)
+  prx3Tuple = Proxy :: Proxy Tuple

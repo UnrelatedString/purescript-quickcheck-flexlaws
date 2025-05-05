@@ -9,7 +9,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkList ∷ Effect Unit
+checkList :: Effect Unit
 checkList = checkLaws "List" do
   Data.checkEq prxList
   Data.checkOrd prxList
@@ -27,5 +27,5 @@ checkList = checkLaws "List" do
   Control.checkAlternative prx2List
   Control.checkMonadPlus prx2List
   where
-  prxList = Proxy ∷ Proxy (List A)
-  prx2List = Proxy ∷ Proxy List
+  prxList = Proxy :: Proxy (List A)
+  prx2List = Proxy :: Proxy List

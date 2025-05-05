@@ -17,32 +17,32 @@ import Type.Proxy (Proxy)
 -- | - Homomorphism: `(pure f) <*> (pure x) = pure (f x)`
 -- | - Interchange: `u <*> (pure y) = (pure ($ y)) <*> u`
 checkApplicative
-  ∷ ∀ f
+  :: forall f
   . Applicative f
-  ⇒ Arbitrary (f A)
-  ⇒ Arbitrary (f (A → B))
-  ⇒ Arbitrary (f (B → C))
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Eq (f C)
-  ⇒ Proxy f
-  → Effect Unit
+  => Arbitrary (f A)
+  => Arbitrary (f (A -> B))
+  => Arbitrary (f (B -> C))
+  => Eq (f A)
+  => Eq (f B)
+  => Eq (f C)
+  => Proxy f
+  -> Effect Unit
 checkApplicative _ =
   checkApplicativeGen
     (arbitrary :: Gen (f A))
-    (arbitrary :: Gen (f (A → B)))
-    (arbitrary :: Gen (f (B → C)))
+    (arbitrary :: Gen (f (A -> B)))
+    (arbitrary :: Gen (f (B -> C)))
 
 checkApplicativeGen
-  ∷ ∀ f
+  :: forall f
   . Applicative f
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Eq (f C)
-  ⇒ Gen (f A)
-  → Gen (f (A → B))
-  → Gen (f (B → C))
-  → Effect Unit
+  => Eq (f A)
+  => Eq (f B)
+  => Eq (f C)
+  => Gen (f A)
+  -> Gen (f (A -> B))
+  -> Gen (f (B -> C))
+  -> Effect Unit
 checkApplicativeGen gen genab genbc = do
   log "Checking 'Identity' law for Applicative"
   quickCheck' 1000 $ identity <$> gen
@@ -58,14 +58,14 @@ checkApplicativeGen gen genab genbc = do
 
   where
 
-  identity ∷ f A → Boolean
+  identity :: f A -> Boolean
   identity v = (pure F.identity <*> v) == v
 
-  composition ∷ f (B → C) → f (A → B) → f A → Boolean
+  composition :: f (B -> C) -> f (A -> B) -> f A -> Boolean
   composition f g x = (pure (<<<) <*> f <*> g <*> x) == (f <*> (g <*> x))
 
-  homomorphism ∷ (A → B) → A → Boolean
-  homomorphism f x = (pure f <*> pure x) == (pure (f x) ∷ f B)
+  homomorphism :: (A -> B) -> A -> Boolean
+  homomorphism f x = (pure f <*> pure x) == (pure (f x) :: f B)
 
-  interchange ∷ A → f (A → B) → Boolean
+  interchange :: A -> f (A -> B) -> Boolean
   interchange y u = (u <*> pure y) == (pure (_ $ y) <*> u)

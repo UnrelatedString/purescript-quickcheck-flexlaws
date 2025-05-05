@@ -12,25 +12,25 @@ import Type.Proxy (Proxy)
 
 -- | - Non-zero multiplicative inverse: ```a `mod` b = 0``` for all `a` and `b`
 checkField
-  ∷ ∀ a
+  :: forall a
   . Field a
-  ⇒ Arbitrary a
-  ⇒ Eq a
-  ⇒ Proxy a
-  → Effect Unit
+  => Arbitrary a
+  => Eq a
+  => Proxy a
+  -> Effect Unit
 checkField _ = checkFieldGen (arbitrary :: Gen a)
 
 checkFieldGen
-  ∷ ∀ a
+  :: forall a
   . Field a
-  ⇒ Eq a
-  ⇒ Gen a
-  → Effect Unit
+  => Eq a
+  => Gen a
+  -> Effect Unit
 checkFieldGen gen = do
   log "Checking 'Non-zero multiplicative inverse' law for Field"
   quickCheck' 1000 $ lift2 multiplicativeInverse gen gen
 
   where
 
-  multiplicativeInverse ∷ a → a → Boolean
+  multiplicativeInverse :: a -> a -> Boolean
   multiplicativeInverse x y = x `mod` y == zero

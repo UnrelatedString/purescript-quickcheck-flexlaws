@@ -11,25 +11,25 @@ import Type.Proxy (Proxy)
 
 -- | - Ordering: `bottom <= a <= top`
 checkBounded
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ Bounded a
-  ⇒ Ord a
-  ⇒ Proxy a
-  → Effect Unit
+  => Bounded a
+  => Ord a
+  => Proxy a
+  -> Effect Unit
 checkBounded _ = checkBoundedGen (arbitrary :: Gen a)
 
 checkBoundedGen
-  ∷ ∀ a
+  :: forall a
   . Bounded a
-  ⇒ Ord a
-  ⇒ Gen a
-  → Effect Unit
+  => Ord a
+  => Gen a
+  -> Effect Unit
 checkBoundedGen gen = do
   log "Checking 'Ordering' law for Bounded"
   quickCheck' 1000 $ ordering <$> gen
 
   where
 
-  ordering ∷ a → Boolean
+  ordering :: a -> Boolean
   ordering a = bottom <= a && a <= top

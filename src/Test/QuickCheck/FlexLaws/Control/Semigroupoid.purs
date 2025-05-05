@@ -13,28 +13,28 @@ import Type.Proxy (Proxy)
 
 -- | - Associativity: `p <<< (q <<< r) = (p <<< q) <<< r`
 checkSemigroupoid
-  ∷ ∀ a
+  :: forall a
   . Semigroupoid a
-  ⇒ Arbitrary (a B C)
-  ⇒ Arbitrary (a C D)
-  ⇒ Arbitrary (a D E)
-  ⇒ Eq (a B E)
-  ⇒ Proxy a
-  → Effect Unit
+  => Arbitrary (a B C)
+  => Arbitrary (a C D)
+  => Arbitrary (a D E)
+  => Eq (a B E)
+  => Proxy a
+  -> Effect Unit
 checkSemigroupoid _ =
   checkSemigroupoidGen
-    (arbitrary ∷ Gen (a B C))
-    (arbitrary ∷ Gen (a C D))
-    (arbitrary ∷ Gen (a D E))
+    (arbitrary :: Gen (a B C))
+    (arbitrary :: Gen (a C D))
+    (arbitrary :: Gen (a D E))
 
 checkSemigroupoidGen
-  ∷ ∀ a
+  :: forall a
   . Semigroupoid a
-  ⇒ Eq (a B E)
-  ⇒ Gen (a B C)
-  → Gen (a C D)
-  → Gen (a D E)
-  → Effect Unit
+  => Eq (a B E)
+  => Gen (a B C)
+  -> Gen (a C D)
+  -> Gen (a D E)
+  -> Effect Unit
 checkSemigroupoidGen genbc gencd gende = do
 
   log "Checking 'Associativity' law for Semigroupoid"
@@ -42,5 +42,5 @@ checkSemigroupoidGen genbc gencd gende = do
 
   where
 
-  associativity ∷ a D E → a C D → a B C → Boolean
+  associativity :: a D E -> a C D -> a B C -> Boolean
   associativity p q r = (p <<< (q <<< r)) == ((p <<< q) <<< r)

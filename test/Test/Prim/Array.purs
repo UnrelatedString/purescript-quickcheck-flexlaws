@@ -8,7 +8,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkArray ∷ Effect Unit
+checkArray :: Effect Unit
 checkArray = checkLaws "Array" do
   Data.checkEq prxArray
   Data.checkOrd prxArray
@@ -25,5 +25,5 @@ checkArray = checkLaws "Array" do
   Control.checkAlternative prx2Array
   Control.checkMonadPlus prx2Array
   where
-  prxArray = Proxy ∷ Proxy (Array A)
-  prx2Array = Proxy ∷ Proxy Array
+  prxArray = Proxy :: Proxy (Array A)
+  prx2Array = Proxy :: Proxy Array

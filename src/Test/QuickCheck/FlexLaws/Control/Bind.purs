@@ -11,28 +11,28 @@ import Test.QuickCheck.Gen (Gen)
 import Test.QuickCheck.FlexLaws (A)
 import Type.Proxy (Proxy)
 
--- | - Associativity: `(x >>= f) >>= g = x >>= (\k → f k >>= g)`
+-- | - Associativity: `(x >>= f) >>= g = x >>= (\k -> f k >>= g)`
 checkBind
-  ∷ ∀ m
+  :: forall m
   . Bind m
-  ⇒ Arbitrary (m A)
-  ⇒ Eq (m A)
-  ⇒ Proxy m
-  → Effect Unit
-checkBind _ = checkBindGen (arbitrary :: Gen (m A)) (arbitrary :: Gen (A → m A))
+  => Arbitrary (m A)
+  => Eq (m A)
+  => Proxy m
+  -> Effect Unit
+checkBind _ = checkBindGen (arbitrary :: Gen (m A)) (arbitrary :: Gen (A -> m A))
 
 checkBindGen
-  ∷ ∀ m
+  :: forall m
   . Bind m
-  ⇒ Eq (m A)
-  ⇒ Gen (m A)
-  → Gen (A → m A)
-  → Effect Unit
+  => Eq (m A)
+  => Gen (m A)
+  -> Gen (A -> m A)
+  -> Effect Unit
 checkBindGen gen genF = do
   log "Checking 'Associativity' law for Bind"
   quickCheck' 1000 $ lift3 associativity gen genF genF
 
   where
 
-  associativity ∷ m A → (A → m A) → (A → m A) → Boolean
-  associativity m f g = ((m >>= f) >>= g) == (m >>= (\x → f x >>= g))
+  associativity :: m A -> (A -> m A) -> (A -> m A) -> Boolean
+  associativity m f g = ((m >>= f) >>= g) == (m >>= (\x -> f x >>= g))

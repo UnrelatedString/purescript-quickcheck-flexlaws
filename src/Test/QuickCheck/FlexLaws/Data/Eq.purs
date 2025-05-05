@@ -15,18 +15,18 @@ import Type.Proxy (Proxy)
 -- | - Transitivity: if `x == y` and `y == z` then `x == z`
 -- | - Negation: `x /= y = not (x == y)`
 checkEq
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ Eq a
-  ⇒ Proxy a
-  → Effect Unit
+  => Eq a
+  => Proxy a
+  -> Effect Unit
 checkEq _ = checkEqGen (arbitrary :: Gen a)
 
 checkEqGen
-  ∷ ∀ a
+  :: forall a
   . Eq a
-  ⇒ Gen a
-  → Effect Unit
+  => Gen a
+  -> Effect Unit
 checkEqGen gen = do
   log "Checking 'Reflexivity' law for Eq"
   quickCheck' 1000 $ reflexivity <$> gen
@@ -42,14 +42,14 @@ checkEqGen gen = do
 
   where
 
-  reflexivity ∷ a → Boolean
+  reflexivity :: a -> Boolean
   reflexivity x = (x == x) == true
 
-  symmetry ∷ a → a → Boolean
+  symmetry :: a -> a -> Boolean
   symmetry x y = (x == y) == (y == x)
 
-  transitivity ∷ a → a → a → Boolean
+  transitivity :: a -> a -> a -> Boolean
   transitivity x y z = if (x == y) && (y == z) then x == z else true
 
-  negation ∷ a → a → Boolean
+  negation :: a -> a -> Boolean
   negation x y = (x /= y) == not (x == y)

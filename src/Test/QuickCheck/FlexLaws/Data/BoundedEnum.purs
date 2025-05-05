@@ -26,20 +26,20 @@ import Type.Proxy (Proxy)
 -- | - tofromenum: `toEnum (fromEnum a) = Just a`
 
 checkBoundedEnum
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ BoundedEnum a
-  ⇒ Ord a
-  ⇒ Proxy a
-  → Effect Unit
+  => BoundedEnum a
+  => Ord a
+  => Proxy a
+  -> Effect Unit
 checkBoundedEnum _ = checkBoundedEnumGen (arbitrary :: Gen a)
 
 checkBoundedEnumGen
-  ∷ ∀ a
+  :: forall a
   . BoundedEnum a
-  ⇒ Ord a
-  ⇒ Gen a
-  → Effect Unit
+  => Ord a
+  => Gen a
+  -> Effect Unit
 checkBoundedEnumGen gen = do
   log "Checking 'succ' law for BoundedEnum"
   quickCheck' 1 succLaw

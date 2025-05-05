@@ -15,22 +15,22 @@ import Type.Proxy (Proxy)
 -- | - Associativity: `(x <|> y) <|> z == x <|> (y <|> z)`
 -- | - Distributivity: `f <$> (x <|> y) == (f <$> x) <|> (f <$> y)`
 checkAlt
-  ∷ ∀ f
+  :: forall f
   . Alt f
-  ⇒ Arbitrary (f A)
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Proxy f
-  → Effect Unit
+  => Arbitrary (f A)
+  => Eq (f A)
+  => Eq (f B)
+  => Proxy f
+  -> Effect Unit
 checkAlt _ = checkAltGen (arbitrary :: Gen (f A))
 
 checkAltGen
-  ∷ ∀ f
+  :: forall f
   . Alt f
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Gen (f A)
-  → Effect Unit
+  => Eq (f A)
+  => Eq (f B)
+  => Gen (f A)
+  -> Effect Unit
 checkAltGen gen = do
   log "Checking 'Associativity' law for Alt"
   quickCheck' 1000 $ lift3 associativity gen gen gen
@@ -40,8 +40,8 @@ checkAltGen gen = do
 
   where
 
-  associativity ∷ f A → f A → f A → Boolean
+  associativity :: f A -> f A -> f A -> Boolean
   associativity x y z = ((x <|> y) <|> z) == (x <|> (y <|> z))
 
-  distributivity ∷ f A → f A → (A → B) → Boolean
+  distributivity :: f A -> f A -> (A -> B) -> Boolean
   distributivity x y f = (f <$> (x <|> y)) == ((f <$> x) <|> (f <$> y))

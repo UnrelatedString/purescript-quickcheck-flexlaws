@@ -16,7 +16,7 @@ import Test.Prim.Int (checkInt)
 import Test.Prim.Number (checkNumber)
 import Test.Prim.String (checkString)
 
-main ∷ Effect Unit
+main :: Effect Unit
 main = do
   checkArray
   checkBoolean

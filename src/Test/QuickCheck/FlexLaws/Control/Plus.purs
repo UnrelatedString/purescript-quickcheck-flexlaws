@@ -16,22 +16,22 @@ import Type.Proxy (Proxy)
 -- | - Right identity: `x <|> empty == x`
 -- | - Annihilation: `f <$> empty == empty`
 checkPlus
-  ∷ ∀ f
+  :: forall f
   . Plus f
-  ⇒ Arbitrary (f A)
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Proxy f
-  → Effect Unit
-checkPlus _ = checkPlusGen (arbitrary ∷ Gen (f A))
+  => Arbitrary (f A)
+  => Eq (f A)
+  => Eq (f B)
+  => Proxy f
+  -> Effect Unit
+checkPlus _ = checkPlusGen (arbitrary :: Gen (f A))
 
 checkPlusGen
-  ∷ ∀ f
+  :: forall f
   . Plus f
-  ⇒ Eq (f A)
-  ⇒ Eq (f B)
-  ⇒ Gen (f A)
-  → Effect Unit
+  => Eq (f A)
+  => Eq (f B)
+  => Gen (f A)
+  -> Effect Unit
 checkPlusGen gen = do
   log "Checking 'Left identity' law for Plus"
   quickCheck' 1000 $ leftIdentity <$> gen
@@ -44,11 +44,11 @@ checkPlusGen gen = do
 
   where
 
-  leftIdentity ∷ f A → Boolean
+  leftIdentity :: f A -> Boolean
   leftIdentity x = (empty <|> x) == x
 
-  rightIdentity ∷ f A → Boolean
+  rightIdentity :: f A -> Boolean
   rightIdentity x = (x <|> empty) == x
 
-  annihilation ∷ (A → B) → Boolean
-  annihilation f = (f <$> empty) == (empty ∷ f B)
+  annihilation :: (A -> B) -> Boolean
+  annihilation f = (f <$> empty) == (empty :: f B)

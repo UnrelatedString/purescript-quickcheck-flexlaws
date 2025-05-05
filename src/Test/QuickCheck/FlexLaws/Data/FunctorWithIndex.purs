@@ -12,25 +12,25 @@ import Test.QuickCheck.Gen (Gen)
 import Test.QuickCheck.FlexLaws (A, B)
 import Type.Proxy (Proxy)
 
--- | - Identity: `mapWithIndex (\_ a → a) = identity`
--- | - Composition: `mapWithIndex f . mapWithIndex g = mapWithIndex (\i → f i <<< g i)`
+-- | - Identity: `mapWithIndex (\_ a -> a) = identity`
+-- | - Composition: `mapWithIndex f . mapWithIndex g = mapWithIndex (\i -> f i <<< g i)`
 checkFunctorWithIndex
-  ∷ ∀ f i
+  :: forall f i
   . FunctorWithIndex i f
-  ⇒ Arbitrary (f A)
-  ⇒ Coarbitrary i
-  ⇒ Eq (f A)
-  ⇒ Proxy f
-  → Effect Unit
+  => Arbitrary (f A)
+  => Coarbitrary i
+  => Eq (f A)
+  => Proxy f
+  -> Effect Unit
 checkFunctorWithIndex _ = checkFunctorWithIndexGen (arbitrary :: Gen (f A))
 
 checkFunctorWithIndexGen
-  ∷ ∀ f i
+  :: forall f i
   . FunctorWithIndex i f
-  ⇒ Coarbitrary i
-  ⇒ Eq (f A)
-  ⇒ Gen (f A)
-  → Effect Unit
+  => Coarbitrary i
+  => Eq (f A)
+  => Gen (f A)
+  -> Effect Unit
 checkFunctorWithIndexGen gen = do
 
   log "Checking 'Identity' law for FunctorWithIndex"
@@ -41,10 +41,10 @@ checkFunctorWithIndexGen gen = do
 
   where
 
-  identity ∷ f A → Boolean
-  identity x = mapWithIndex (\_ a → a) x == F.identity x
+  identity :: f A -> Boolean
+  identity x = mapWithIndex (\_ a -> a) x == F.identity x
 
-  composition ∷ f A → (i → B → A) → (i → A → B) → Boolean
+  composition :: f A -> (i -> B -> A) -> (i -> A -> B) -> Boolean
   composition fa f g =
     (mapWithIndex f <<< mapWithIndex g) fa
       == mapWithIndex (\i -> f i <<< g i) fa

@@ -12,20 +12,20 @@ import Type.Proxy (Proxy)
 -- | - Left identity: `mempty <> x = x`
 -- | - Right identity: `x <> mempty = x`
 checkMonoid
-  ∷ ∀ m
+  :: forall m
   . Monoid m
-  ⇒ Arbitrary m
-  ⇒ Eq m
-  ⇒ Proxy m
-  → Effect Unit
+  => Arbitrary m
+  => Eq m
+  => Proxy m
+  -> Effect Unit
 checkMonoid _ = checkMonoidGen (arbitrary :: Gen m)
 
 checkMonoidGen
-  ∷ ∀ m
+  :: forall m
   . Monoid m
-  ⇒ Eq m
-  ⇒ Gen m
-  → Effect Unit
+  => Eq m
+  => Gen m
+  -> Effect Unit
 checkMonoidGen gen = do
   log "Checking 'Left identity' law for Monoid"
   quickCheck' 1000 $ leftIdentity <$> gen
@@ -35,8 +35,8 @@ checkMonoidGen gen = do
 
   where
 
-  leftIdentity ∷ m → Boolean
+  leftIdentity :: m -> Boolean
   leftIdentity x = mempty <> x == x
 
-  rightIdentity ∷ m → Boolean
+  rightIdentity :: m -> Boolean
   rightIdentity x = x <> mempty == x

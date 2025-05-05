@@ -12,25 +12,25 @@ import Type.Proxy (Proxy)
 
 -- | - Associativity: `(x <> y) <> z = x <> (y <> z)`
 checkSemigroup
-  ∷ ∀ s
+  :: forall s
   . Semigroup s
-  ⇒ Arbitrary s
-  ⇒ Eq s
-  ⇒ Proxy s
-  → Effect Unit
+  => Arbitrary s
+  => Eq s
+  => Proxy s
+  -> Effect Unit
 checkSemigroup _ = checkSemigroupGen (arbitrary :: Gen s)
 
 checkSemigroupGen
-  ∷ ∀ s
+  :: forall s
   . Semigroup s
-  ⇒ Eq s
-  ⇒ Gen s
-  → Effect Unit
+  => Eq s
+  => Gen s
+  -> Effect Unit
 checkSemigroupGen gen = do
   log "Checking 'Associativity' law for Semigroup"
   quickCheck' 1000 $ lift3 associativity gen gen gen
 
   where
 
-  associativity ∷ s → s → s → Boolean
+  associativity :: s -> s -> s -> Boolean
   associativity x y z = ((x <> y) <> z) == (x <> (y <> z))

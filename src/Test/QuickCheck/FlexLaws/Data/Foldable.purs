@@ -15,18 +15,18 @@ import Type.Proxy (Proxy)
 -- | - foldr: `foldr = foldrDefault`
 -- | - foldl: `foldl = foldlDefault`
 checkFoldable
-  ∷ ∀ f
+  :: forall f
   . Foldable f
-  ⇒ Arbitrary (f A)
-  ⇒ Proxy f
-  → Effect Unit
+  => Arbitrary (f A)
+  => Proxy f
+  -> Effect Unit
 checkFoldable _ = checkFoldableGen (arbitrary :: Gen (f A))
 
 checkFoldableGen
-  ∷ ∀ f
+  :: forall f
   . Foldable f
-  ⇒ Gen (f A)
-  → Effect Unit
+  => Gen (f A)
+  -> Effect Unit
 checkFoldableGen gen = do
   log "Checking 'foldr' law for Foldable"
   quickCheck' 1000 $ foldrLaw <$> gen
@@ -43,20 +43,20 @@ checkFoldableGen gen = do
 
 -- | foldMap: `foldMap = fold <<< map`
 checkFoldableFunctor
-  ∷ ∀ f
+  :: forall f
   . Foldable f
-  ⇒ Functor f
-  ⇒ Arbitrary (f A)
-  ⇒ Proxy f
-  → Effect Unit
+  => Functor f
+  => Arbitrary (f A)
+  => Proxy f
+  -> Effect Unit
 checkFoldableFunctor _ = checkFoldableFunctorGen (arbitrary :: Gen (f A))
 
 checkFoldableFunctorGen
-  ∷ ∀ f
+  :: forall f
   . Foldable f
-  ⇒ Functor f
-  ⇒ Gen (f A)
-  → Effect Unit
+  => Functor f
+  => Gen (f A)
+  -> Effect Unit
 checkFoldableFunctorGen gen = do
   checkFoldableGen gen
 

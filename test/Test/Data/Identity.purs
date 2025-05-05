@@ -9,7 +9,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkIdentity ∷ Effect Unit
+checkIdentity :: Effect Unit
 checkIdentity = checkLaws "Identity" do
   Data.checkEq prxIdentity
   Data.checkOrd prxIdentity
@@ -39,5 +39,5 @@ checkIdentity = checkLaws "Identity" do
   -- checkPlus prx2Identity
   -- checkAlternative prx2Identity
   where
-  prxIdentity = Proxy ∷ Proxy (Identity A)
-  prx2Identity = Proxy ∷ Proxy Identity
+  prxIdentity = Proxy :: Proxy (Identity A)
+  prx2Identity = Proxy :: Proxy Identity

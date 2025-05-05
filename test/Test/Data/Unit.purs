@@ -7,7 +7,7 @@ import Test.QuickCheck.FlexLaws (checkLaws)
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkUnit ∷ Effect Unit
+checkUnit :: Effect Unit
 checkUnit = checkLaws "Unit" do
   Data.checkEq prxUnit
   Data.checkOrd prxUnit
@@ -22,4 +22,4 @@ checkUnit = checkLaws "Unit" do
   Data.checkHeytingAlgebra prxUnit
   Data.checkBooleanAlgebra prxUnit
   where
-  prxUnit = Proxy ∷ Proxy Unit
+  prxUnit = Proxy :: Proxy Unit

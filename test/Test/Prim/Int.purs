@@ -8,7 +8,7 @@ import Test.QuickCheck.FlexLaws (checkLaws)
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkInt ∷ Effect Unit
+checkInt :: Effect Unit
 checkInt = checkLaws "Int" do
   Data.checkEq prxInt
   Data.checkOrd prxInt
@@ -19,4 +19,4 @@ checkInt = checkLaws "Int" do
   Data.checkEuclideanRingGen (chooseInt (-10_000) 10_000)
   Data.checkRing prxInt
   where
-  prxInt = Proxy ∷ Proxy Int
+  prxInt = Proxy :: Proxy Int

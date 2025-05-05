@@ -14,18 +14,18 @@ import Type.Proxy (Proxy)
 -- | - Antisymmetry: if `a <= b` and `b <= a` then `a = b`
 -- | - Transitivity: if `a <= b` and `b <= c` then `a <= c`
 checkOrd
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ Ord a
-  ⇒ Proxy a
-  → Effect Unit
+  => Ord a
+  => Proxy a
+  -> Effect Unit
 checkOrd _ = checkOrdGen (arbitrary :: Gen a)
 
 checkOrdGen
-  ∷ ∀ a
+  :: forall a
   . Ord a
-  ⇒ Gen a
-  → Effect Unit
+  => Gen a
+  -> Effect Unit
 checkOrdGen gen = do
   log "Checking 'Reflexivity' law for Ord"
   quickCheck' 1000 $ reflexivity <$> gen
@@ -38,11 +38,11 @@ checkOrdGen gen = do
 
   where
 
-  reflexivity ∷ a → Boolean
+  reflexivity :: a -> Boolean
   reflexivity a = a <= a
 
-  antisymmetry ∷ a → a → Boolean
+  antisymmetry :: a -> a -> Boolean
   antisymmetry a b = if (a <= b) && (b <= a) then a == b else a /= b
 
-  transitivity ∷ a → a → a → Boolean
+  transitivity :: a -> a -> a -> Boolean
   transitivity a b c = if (a <= b) && (b <= c) then a <= c else true

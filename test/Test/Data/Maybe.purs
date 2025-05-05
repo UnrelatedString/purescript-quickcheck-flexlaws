@@ -9,7 +9,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkMaybe ∷ Effect Unit
+checkMaybe :: Effect Unit
 checkMaybe = checkLaws "Maybe" do
   Data.checkEq prxMaybe
   Data.checkOrd prxMaybe
@@ -29,5 +29,5 @@ checkMaybe = checkLaws "Maybe" do
   Control.checkMonad prx2Maybe
   Control.checkExtend prx2Maybe
   where
-  prxMaybe = Proxy ∷ Proxy (Maybe A)
-  prx2Maybe = Proxy ∷ Proxy Maybe
+  prxMaybe = Proxy :: Proxy (Maybe A)
+  prx2Maybe = Proxy :: Proxy Maybe

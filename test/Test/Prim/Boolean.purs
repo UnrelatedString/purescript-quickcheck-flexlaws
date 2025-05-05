@@ -7,7 +7,7 @@ import Test.QuickCheck.FlexLaws (checkLaws)
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkBoolean ∷ Effect Unit
+checkBoolean :: Effect Unit
 checkBoolean = checkLaws "Boolean" do
   Data.checkEq prxBoolean
   Data.checkOrd prxBoolean
@@ -17,4 +17,4 @@ checkBoolean = checkLaws "Boolean" do
   Data.checkHeytingAlgebra prxBoolean
   Data.checkBooleanAlgebra prxBoolean
   where
-  prxBoolean = Proxy ∷ Proxy Boolean
+  prxBoolean = Proxy :: Proxy Boolean

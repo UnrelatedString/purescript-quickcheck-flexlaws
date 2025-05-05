@@ -8,7 +8,7 @@ import Test.QuickCheck.FlexLaws (checkLaws)
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkNumber ∷ Effect Unit
+checkNumber :: Effect Unit
 checkNumber = checkLaws "Number" do
   Data.checkEq prxNumber
   Data.checkOrd prxNumber
@@ -18,7 +18,7 @@ checkNumber = checkLaws "Number" do
   Data.checkDivisionRing prxNumber
   Data.checkCommutativeRing prxNumber
   where
-  prxNumber = Proxy ∷ Proxy ApproxNumber
+  prxNumber = Proxy :: Proxy ApproxNumber
 
 newtype ApproxNumber = ApproxNumber Number
 

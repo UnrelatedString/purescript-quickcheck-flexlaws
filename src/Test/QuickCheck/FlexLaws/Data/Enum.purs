@@ -13,20 +13,20 @@ import Test.QuickCheck.Gen (Gen)
 import Type.Proxy (Proxy)
 
 checkEnum
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ Enum a
-  ⇒ Ord a
-  ⇒ Proxy a
-  → Effect Unit
+  => Enum a
+  => Ord a
+  => Proxy a
+  -> Effect Unit
 checkEnum _ = checkEnumGen (arbitrary :: Gen a)
 
 checkEnumGen
-  ∷ ∀ a
+  :: forall a
   . Enum a
-  ⇒ Ord a
-  ⇒ Gen a
-  → Effect Unit
+  => Ord a
+  => Gen a
+  -> Effect Unit
 checkEnumGen gen = do
   log "Checking 'Successor' law for Enum"
   quickCheck' 1000 $ successor <$> gen

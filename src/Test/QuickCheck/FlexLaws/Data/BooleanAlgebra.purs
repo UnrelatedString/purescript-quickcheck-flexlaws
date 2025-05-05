@@ -12,25 +12,25 @@ import Type.Proxy (Proxy)
 
 -- | - Excluded middle: `a || not a = tt`
 checkBooleanAlgebra
-  ∷ ∀ a
+  :: forall a
   . Arbitrary a
-  ⇒ BooleanAlgebra a
-  ⇒ Eq a
-  ⇒ Proxy a
-  → Effect Unit
+  => BooleanAlgebra a
+  => Eq a
+  => Proxy a
+  -> Effect Unit
 checkBooleanAlgebra _ = checkBooleanAlgebraGen (arbitrary :: Gen a)
 
 checkBooleanAlgebraGen
-  ∷ ∀ a
+  :: forall a
   . BooleanAlgebra a
-  ⇒ Eq a
-  ⇒ Gen a
-  → Effect Unit
+  => Eq a
+  => Gen a
+  -> Effect Unit
 checkBooleanAlgebraGen gen = do
   log "Checking 'Excluded middle' law for BooleanAlgebra"
   quickCheck' 1000 $ excludedMiddle <$> gen
 
   where
 
-  excludedMiddle ∷ a → Boolean
+  excludedMiddle :: a -> Boolean
   excludedMiddle a = (a || not a) == tt

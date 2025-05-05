@@ -7,7 +7,7 @@ import Test.QuickCheck.FlexLaws (checkLaws)
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkOrdering ∷ Effect Unit
+checkOrdering :: Effect Unit
 checkOrdering = checkLaws "Ordering" do
   Data.checkEq prxOrdering
   Data.checkOrd prxOrdering
@@ -16,4 +16,4 @@ checkOrdering = checkLaws "Ordering" do
   Data.checkBoundedEnum prxOrdering
   Data.checkSemigroup prxOrdering
   where
-  prxOrdering = Proxy ∷ Proxy Ordering
+  prxOrdering = Proxy :: Proxy Ordering

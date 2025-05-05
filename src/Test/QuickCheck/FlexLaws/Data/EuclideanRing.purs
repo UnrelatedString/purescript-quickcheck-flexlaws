@@ -20,20 +20,20 @@ import Type.Proxy (Proxy)
 -- | - Submultiplicative euclidean function:
 -- |   - For all nonzero `a` and `b`, `degree a <= degree (a * b)`
 checkEuclideanRing
-  ∷ ∀ a
+  :: forall a
   . EuclideanRing a
-  ⇒ Arbitrary a
-  ⇒ Eq a
-  ⇒ Proxy a
-  → Effect Unit
+  => Arbitrary a
+  => Eq a
+  => Proxy a
+  -> Effect Unit
 checkEuclideanRing _ = checkEuclideanRingGen (arbitrary :: Gen a)
 
 checkEuclideanRingGen
-  ∷ ∀ a
+  :: forall a
   . EuclideanRing a
-  ⇒ Eq a
-  ⇒ Gen a
-  → Effect Unit
+  => Eq a
+  => Gen a
+  -> Effect Unit
 checkEuclideanRingGen gen = do
   log "Checking 'Integral domain' law for EuclideanRing"
   log "one /= zero:"
@@ -52,17 +52,17 @@ checkEuclideanRingGen gen = do
 
   where
 
-  integralDomain ∷ a → a → Boolean
+  integralDomain :: a -> a -> Boolean
   integralDomain a b
     | a /= zero && b /= zero = a * b /= zero
     | otherwise = true
 
-  nonnegativeEuclideanFunc ∷ a → Boolean
+  nonnegativeEuclideanFunc :: a -> Boolean
   nonnegativeEuclideanFunc a
     | a /= zero = degree a >= zero
     | otherwise = true
 
-  quotRem ∷ a → a → Boolean
+  quotRem :: a -> a -> Boolean
   quotRem a b
     | b /= zero =
         let
@@ -73,7 +73,7 @@ checkEuclideanRingGen gen = do
 
     | otherwise = true
 
-  submultiplicative ∷ a → a → Boolean
+  submultiplicative :: a -> a -> Boolean
   submultiplicative a b
     | a == zero || b == zero = true
     | otherwise = degree a <= degree (a * b)

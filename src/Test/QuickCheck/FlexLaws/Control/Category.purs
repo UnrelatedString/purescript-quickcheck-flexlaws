@@ -13,27 +13,27 @@ import Type.Proxy (Proxy)
 
 -- | - Identity: `id <<< p = p <<< id = p`
 checkCategory
-  ∷ ∀ a
+  :: forall a
   . Category a
-  ⇒ Arbitrary (a B C)
-  ⇒ Eq (a B C)
-  ⇒ Proxy a
-  → Effect Unit
+  => Arbitrary (a B C)
+  => Eq (a B C)
+  => Proxy a
+  -> Effect Unit
 checkCategory _ = checkCategoryGen (arbitrary :: Gen (a B C))
 
 checkCategoryGen
-  ∷ ∀ a
+  :: forall a
   . Category a
-  ⇒ Arbitrary (a B C)
-  ⇒ Eq (a B C)
-  ⇒ Gen (a B C)
-  → Effect Unit
+  => Arbitrary (a B C)
+  => Eq (a B C)
+  => Gen (a B C)
+  -> Effect Unit
 checkCategoryGen gen = do
   log "Checking 'Identity' law for Category"
   quickCheck' 1000 $ identity <$> gen
 
   where
 
-  identity ∷ a B C → Boolean
+  identity :: a B C -> Boolean
   identity p = (F.identity <<< p) == p
             && (p <<< F.identity) == p

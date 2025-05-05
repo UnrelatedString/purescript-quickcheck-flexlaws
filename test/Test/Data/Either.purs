@@ -9,7 +9,7 @@ import Test.QuickCheck.FlexLaws.Control as Control
 import Test.QuickCheck.FlexLaws.Data as Data
 import Type.Proxy (Proxy(..))
 
-checkEither ∷ Effect Unit
+checkEither :: Effect Unit
 checkEither = checkLaws "Either" do
   Data.checkEq prxEither
   Data.checkOrd prxEither
@@ -25,5 +25,5 @@ checkEither = checkLaws "Either" do
   Control.checkMonad prx2Either
   Control.checkExtend prx2Either
   where
-  prxEither = Proxy ∷ Proxy (Either A B)
-  prx2Either = Proxy ∷ Proxy (Either C)
+  prxEither = Proxy :: Proxy (Either A B)
+  prx2Either = Proxy :: Proxy (Either C)
