@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/release/UnrelatedString/purescript-quickcheck-flexlaws.svg)](https://github.com/UnrelatedString/purescript-quickcheck-flexlaws/releases)
 [![Pursuit](https://pursuit.purescript.org/packages/purescript-quickcheck-flexlaws/badge)](https://pursuit.purescript.org/packages/purescript-quickcheck-flexlaws)
 
-QuickCheck-powered law tests for PureScript's core typeclasses, but with more flexible integration into your testing framework of choice (like [Spec](https://pursuit.purescript.org/packages/purescript-spec/8.1.1)).
+QuickCheck-powered law tests for PureScript's core typeclasses, but with more flexible integration into your testing framework of choice (like [Spec](https://pursuit.purescript.org/packages/purescript-spec/8.1.1)). Forked from the original [`quickcheck-laws`](https://github.com/purescript-contrib/purescript-quickcheck-laws) with systematic breaking changes.
 
 ## Installation
 
