@@ -1,12 +1,38 @@
 module Test.QuickCheck.FlexLaws
-  ( module Test.QuickCheck.FlexLaws
+  ( FlexChecker
+  , flexCheck
+  , checkLaws
+  , A
+  , B
+  , C
+  , D
+  , E
   ) where
 
 import Prelude
 import Data.Enum (class Enum, class BoundedEnum)
 import Effect (Effect)
 import Effect.Console (log)
-import Test.QuickCheck.Arbitrary (class Arbitrary, class Coarbitrary)
+import Test.QuickCheck (class Arbitrary, class Coarbitrary, class Testable)
+
+-- don't even need ReaderT! just the function monad
+
+type FlexChecker :: forall k. k -> Type
+type FlexChecker a = forall m. Monad m => Config m -> m Unit
+
+type Config m =
+  { check :: forall p. Testable p => p -> m Unit
+  , typeSuite :: String -> m Unit -> m Unit
+  , classSuite :: { typeName :: String, className :: String } -> m Unit -> m Unit
+  , lawSuite ::
+    { typeName :: String
+    , className :: String
+    , lawName :: String
+    , lawDescription :: String
+    }
+    -> m Unit
+    -> m Unit
+  }
 
 checkLaws :: String -> Effect Unit -> Effect Unit
 checkLaws typeName laws = do
