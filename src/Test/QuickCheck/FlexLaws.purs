@@ -35,8 +35,7 @@ type FlexSuite a = forall m. Monad m => SuiteContext m -> m Unit
 data SuiteContext m = SuiteContext String (Config m)
 
 type Config m =
-  { check :: Checker (m Unit)
-  , typeSuite :: String -> m Unit -> m Unit
+  { typeSuite :: String -> m Unit -> m Unit
   , classSuite :: { typeName :: String, className :: String } -> m Unit -> m Unit
   , lawTest ::
     { typeName :: String
@@ -44,8 +43,7 @@ type Config m =
     , lawName :: String
     , lawDescription :: String
     }
-    -> m Unit
-    -> m Unit
+    -> Checker (m Unit)
   }
 
 type Checker a = forall p. Testable p => p -> a
@@ -63,18 +61,28 @@ runClassSuite (ClassSuite className laws) (SuiteContext typeName config) = do
       config.lawTest { typeName, className, lawName, lawDescription } do
         invertedExistentialTestable config.check
 
-
 -- | A `Config` emulating the behavior of `quickcheck-laws`.
 vanilla :: Config Effect
 vanilla =
-  { check: quickCheck' 1000
-  , typeSuite: \typeName laws -> do
+  { typeSuite: \typeName laws -> do
     log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
     laws
   , classSuite: const identity
   , lawTest: \info law -> do
     log $ "Checking '" <> info.lawName <> "' law for " <> info.className
-    law
+    quickCheck' 1000 law
+  }
+
+-- | Factory for `Config`s that produce nested tests, with basic messages/names.
+hierarchical
+  :: forall m n
+  . { suite :: String -> m Unit -> m Unit
+    , test :: String -> n -> m Unit
+    , check :: Checker n
+    }
+  -> Config m
+hierarchical { suite, test, check } =
+  { typeSuite: \typeName -> suite $ 
   }
 
 checkLaws :: String -> Effect Unit -> Effect Unit

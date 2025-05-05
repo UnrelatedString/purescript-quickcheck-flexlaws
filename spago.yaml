@@ -15,6 +15,7 @@ package:
     - newtype
     - prelude
     - quickcheck
+    - transformers
     - tuples
   test:
     main: Test.Main
