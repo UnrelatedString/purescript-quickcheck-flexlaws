@@ -18,6 +18,7 @@
             "newtype",
             "prelude",
             "quickcheck",
+            "transformers",
             "tuples"
           ],
           "build_plan": [
