@@ -5,6 +5,7 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
+- Overhaul into FlexLaws fork, published as a separate package
 
 New features:
 

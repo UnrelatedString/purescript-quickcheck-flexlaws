@@ -1,18 +1,17 @@
-# QuickCheck Laws
+# Flexible QuickCheck Laws
 
-[![CI](https://github.com/purescript-contrib/purescript-quickcheck-laws/workflows/CI/badge.svg?branch=main)](https://github.com/purescript-contrib/purescript-quickcheck-laws/actions?query=workflow%3ACI+branch%3Amain)
-[![Release](https://img.shields.io/github/release/purescript-contrib/purescript-quickcheck-laws.svg)](https://github.com/purescript-contrib/purescript-quickcheck-laws/releases)
-[![Pursuit](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/badge)](https://pursuit.purescript.org/packages/purescript-quickcheck-laws)
-[![Maintainer: garyb](https://img.shields.io/badge/maintainer-garyb-teal.svg)](https://github.com/garyb)
+[![CI](https://github.com/UnrelatedString/purescript-quickcheck-flexlaws/workflows/CI/badge.svg?branch=main)](https://github.com/UnrelatedString/purescript-quickcheck-flexlaws/actions?query=workflow%3ACI+branch%3Amain)
+[![Release](https://img.shields.io/github/release/UnrelatedString/purescript-quickcheck-flexlaws.svg)](https://github.com/UnrelatedString/purescript-quickcheck-flexlaws/releases)
+[![Pursuit](https://pursuit.purescript.org/packages/purescript-quickcheck-flexlaws/badge)](https://pursuit.purescript.org/packages/purescript-quickcheck-flexlaws)
 
-QuickCheck-powered law tests for PureScript's core typeclasses.
+QuickCheck-powered law tests for PureScript's core typeclasses, but with more flexible integration into your testing framework of choice (like [Spec](https://pursuit.purescript.org/packages/purescript-spec/8.1.1)).
 
 ## Installation
 
-Install `quickcheck-laws` with [Spago](https://github.com/purescript/spago):
+Install `quickcheck-flexlaws` with [Spago](https://github.com/purescript/spago):
 
 ```sh
-spago install quickcheck-laws
+spago install quickcheck-flexlaws
 ```
 
 ## Quick start
