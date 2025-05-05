@@ -1,6 +1,8 @@
 module Test.QuickCheck.FlexLaws
   ( FlexChecker
-  , flexCheck
+  , Config
+  , ClassSuite
+  , LawTest
   , checkLaws
   , A
   , B
@@ -13,7 +15,12 @@ import Prelude
 import Data.Enum (class Enum, class BoundedEnum)
 import Effect (Effect)
 import Effect.Console (log)
-import Test.QuickCheck (class Arbitrary, class Coarbitrary, class Testable)
+import Test.QuickCheck
+  ( class Arbitrary
+  , class Coarbitrary
+  , class Testable
+  , quickCheck'
+  )
 
 -- don't even need ReaderT! just the function monad
 
@@ -21,10 +28,10 @@ type FlexChecker :: forall k. k -> Type
 type FlexChecker a = forall m. Monad m => Config m -> m Unit
 
 type Config m =
-  { check :: forall p. Testable p => p -> m Unit
+  { check :: Check (m Unit)
   , typeSuite :: String -> m Unit -> m Unit
   , classSuite :: { typeName :: String, className :: String } -> m Unit -> m Unit
-  , lawSuite ::
+  , lawTest ::
     { typeName :: String
     , className :: String
     , lawName :: String
@@ -32,6 +39,25 @@ type Config m =
     }
     -> m Unit
     -> m Unit
+  }
+
+type Check a = forall p. Testable p => p -> a
+
+data ClassSuite = ClassSuite String (Array LawTest)
+
+data LawTest = LawTest String String (forall a. Check a)
+
+-- | A `Config` emulating the behavior of `quickcheck-laws`.
+vanilla :: Config Effect
+vanilla =
+  { check: quickCheck' 1000
+  , typeSuite: \typeName laws -> do
+    log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
+    laws
+  , classSuite: const identity
+  , lawTest: \info law -> do
+    log $ "Checking '" <> info.lawName <> "' law for " <> info.className
+    law
   }
 
 checkLaws :: String -> Effect Unit -> Effect Unit
