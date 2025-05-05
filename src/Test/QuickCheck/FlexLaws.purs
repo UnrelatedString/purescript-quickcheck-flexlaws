@@ -1,5 +1,6 @@
 module Test.QuickCheck.FlexLaws
-  ( FlexChecker
+  ( FlexSuite
+  , Checker
   , Config
   , ClassSuite
   , LawTest
@@ -24,11 +25,11 @@ import Test.QuickCheck
 
 -- don't even need ReaderT! just the function monad
 
-type FlexChecker :: forall k. k -> Type
-type FlexChecker a = forall m. Monad m => Config m -> m Unit
+type FlexSuite :: forall k. k -> Type
+type FlexSuite a = forall m. Monad m => Config m -> m Unit
 
 type Config m =
-  { check :: Check (m Unit)
+  { check :: Checker (m Unit)
   , typeSuite :: String -> m Unit -> m Unit
   , classSuite :: { typeName :: String, className :: String } -> m Unit -> m Unit
   , lawTest ::
@@ -41,11 +42,13 @@ type Config m =
     -> m Unit
   }
 
-type Check a = forall p. Testable p => p -> a
+type Checker a = forall p. Testable p => p -> a
 
 data ClassSuite = ClassSuite String (Array LawTest)
 
-data LawTest = LawTest String String (forall a. Check a)
+data LawTest = LawTest String String (forall a. Checker a -> a)
+
+-- ...I hope monomorphization doesn't kill me if I try just using (#) in front of everything
 
 -- | A `Config` emulating the behavior of `quickcheck-laws`.
 vanilla :: Config Effect
