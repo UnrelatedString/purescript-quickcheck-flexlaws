@@ -65,12 +65,12 @@ runClassSuite (ClassSuite className laws) (SuiteContext typeName config) = do
 vanilla :: Config Effect
 vanilla =
   { typeSuite: \typeName laws -> do
-    log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
-    laws
+      log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
+      laws
   , classSuite: const identity
   , lawTest: \info predicate -> do
-    log $ "Checking '" <> info.lawName <> "' law for " <> info.className
-    quickCheck' 1000 law
+      log $ "Checking '" <> info.lawName <> "' law for " <> info.className
+      quickCheck' 1000 law
   }
 
 -- | Factory for `Config`s that produce a flat grouping of tests by class.
@@ -84,10 +84,12 @@ shallowClasses
 shallowClasses { suite, test, check } =
   { typeSuite: const identity
   , classSuite: (\{ typeName, className }
-      -> suite (className <> " " <> typeName <> " laws"))
+      -> suite (className <> " " <> typeName <> " laws")
+    )
   , lawTest: (\( lawName, lawDescription )
       -> test (lawName <> " law: " <> lawDescription)
-         <<< check)
+         <<< check
+    )
   }
 
 checkLaws :: String -> Effect Unit -> Effect Unit
