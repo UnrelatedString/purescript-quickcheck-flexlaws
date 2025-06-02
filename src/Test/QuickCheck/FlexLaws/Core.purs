@@ -1,4 +1,4 @@
-module Test.QuickCheck.FlexLaws
+module Test.QuickCheck.FlexLaws.Core
   ( FlexSuite
   , Checker
   , Config
