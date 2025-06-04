@@ -7,11 +7,9 @@ module Test.FlexLaws.Types
   ) where
 
 import Prelude
+import Data.Enum (class Enum, class BoundedEnum)
 import Test.QuickCheck
-  ( class Arbitrary
-  , class Coarbitrary
-  , class Testable
-  )
+  (class Arbitrary, class Coarbitrary)
 
 -- TODO: weekdays, some other bigger stuff, machinery for making them vary
 

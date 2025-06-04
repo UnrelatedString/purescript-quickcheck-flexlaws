@@ -5,6 +5,7 @@
         "path": "./",
         "core": {
           "dependencies": [
+            "enums",
             "prelude",
             "quickcheck"
           ],

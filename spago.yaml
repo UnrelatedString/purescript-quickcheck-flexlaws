@@ -3,6 +3,7 @@ package:
   description: QuickCheck powered law tests for PureScript's core typeclasses, but with more flexible integration into your testing framework of choice
   dependencies:
     - prelude
+    - enums
     - quickcheck
   test:
     main: Test.Main
