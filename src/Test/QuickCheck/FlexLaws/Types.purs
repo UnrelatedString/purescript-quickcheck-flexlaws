@@ -1,13 +1,5 @@
-module Test.QuickCheck.FlexLaws
-  ( FlexSuite
-  , Checker
-  , Config
-  , ClassSuite
-  , LawTest
-  , runClassSuite
-  , checkLaws
-  , vanilla
-  , A
+module Test.FlexLaws.Types
+  ( A
   , B
   , C
   , D
@@ -15,92 +7,13 @@ module Test.QuickCheck.FlexLaws
   ) where
 
 import Prelude
-import Data.Enum (class Enum, class BoundedEnum)
-import Data.Traversable (for_)
-import Effect (Effect)
-import Effect.Console (log)
 import Test.QuickCheck
   ( class Arbitrary
   , class Coarbitrary
   , class Testable
-  , quickCheck'
   )
 
--- don't even need ReaderT! just the function monad
--- ...except no that would just discard the monadic stuff it's supposed to be doing ;_;
-
-type FlexSuite :: forall k. k -> Type
-type FlexSuite a = forall m. Monad m => SuiteContext m -> m Unit
-
-data SuiteContext m = SuiteContext String (Config m)
-
-type Config m =
-  { typeSuite :: String -> m Unit -> m Unit
-  , classSuite :: { typeName :: String, className :: String } -> m Unit -> m Unit
-  , lawTest ::
-    { typeName :: String
-    , className :: String
-    , lawName :: String
-    , lawDescription :: String
-    }
-    -> Checker (m Unit)
-  }
-
-type Checker a = forall p. Testable p => p -> a
-
-data ClassSuite = ClassSuite String (Array LawTest)
-
-data LawTest = LawTest String String (forall a. Checker a -> a)
-
--- ...I hope inference doesn't kill me if I try just using (#) in front of everything
-
-runClassSuite :: forall a. ClassSuite -> FlexSuite a
-runClassSuite (ClassSuite className laws) (SuiteContext typeName config) = do
-  config.classSuite { typeName, className } do
-    for_ laws \(LawTest lawName lawDescription invertedExistentialTestable) ->
-      config.lawTest { typeName, className, lawName, lawDescription } #
-        invertedExistentialTestable
-
--- | A `Config` emulating the behavior of `quickcheck-laws`.
-vanilla :: Config Effect
-vanilla =
-  { typeSuite: \typeName laws -> do
-    log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
-    laws
-  , classSuite: const identity
-  , lawTest: \info predicate -> do
-    log $ "Checking '" <> info.lawName <> "' law for " <> info.className
-    quickCheck' 1000 law
-  }
-
--- | Factory for `Config`s that produce a flat grouping of tests by class.
-shallowClasses
-  :: forall m n
-  . { suite :: String -> m Unit -> m Unit
-    , test :: String -> n -> m Unit
-    , check :: Checker n
-    }
-  -> Config m
-shallowClasses { suite, test, check } =
-  { typeSuite: const identity
-  , classSuite: (\{ typeName, className }
-      -> suite (className <> " " <> typeName <> " laws"))
-  , lawTest: (\( lawName, lawDescription )
-      -> test (lawName <> " law: " <> lawDescription)
-         <<< check)
-  }
-
-checkLaws :: String -> Effect Unit -> Effect Unit
-checkLaws typeName laws = do
-  log $ "\n\nChecking laws of " <> typeName <> " instances...\n"
-  laws
-
--- TODO: unironically bring back my HeavenlyStems enum for this because
--- Ordering is, uh, a liiiitttttttttle small for comfort
--- -- like yeah it does mean you're all but guaranteed to hit edge cases but
--- actually yeah no this should just straight up be polymorphic like
--- if you're making this whole framework why NOT cover all your bases yknow
--- also maybe days of the week instead of heavenly stems lol.
+-- TODO: weekdays, some other bigger stuff, machinery for making them vary
 
 newtype A = A Ordering
 

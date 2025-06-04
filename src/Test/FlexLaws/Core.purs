@@ -29,5 +29,3 @@ newtype LawTest a = LawTest
 -- | or as two sides of an equation to format
 -- | according to the end user's preference.
 data LawDescription = Plain String | Equation String String
-
--- TODO: weekdays :p and a bunch of other nonsense for testing multiple types
