@@ -1,8 +1,14 @@
-.*
-!.gitignore
-!.github
-!.editorconfig
 
-output
-generated-docs
-bower_components
+bower_components/
+node_modules/
+.pulp-cache/
+output/
+output-es/
+generated-docs/
+.psc-package/
+.psc*
+.purs*
+.psa*
+.spago
+
+.spec-results
