@@ -1,9 +1,9 @@
-module Test.QuickCheck.FlexLaws.Format
+module Test.FlexLaws.Format
   ( equate
   ) where
 
 import Prelude
-import Test.QuickCheck.FlexLaws.Core
+import Test.FlexLaws.Core
   ( LawDescription(..)
   )
 

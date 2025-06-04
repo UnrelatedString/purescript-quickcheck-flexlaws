@@ -1,4 +1,4 @@
-module Test.QuickCheck.FlexLaws.Core
+module Test.FlexLaws.Core
   ( ClassTestSuite(..)
   , LawTest(..)
   , LawDescription(..)

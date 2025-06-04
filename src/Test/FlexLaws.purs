@@ -1,5 +1,10 @@
-module Test.QuickCheck.FlexLaws
+module Test.FlexLaws
   ( module Reexports
   ) where
 
-import Test.QuickCheck.FlexLaws.Core as Reexports
+import Test.FlexLaws.Core
+  ( ClassTestSuite(..)
+  , LawTest(..)
+  , LawDescription(..)
+  )
+  as Reexports
