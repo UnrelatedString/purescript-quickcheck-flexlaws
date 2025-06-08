@@ -11,13 +11,14 @@ import Test.QuickCheck
   , class Testable
   )
 
--- | A suite of tests corresponding to the laws of a class.
+-- | A suite of tests corresponding to the laws of a class,
+-- | for a given type.
 newtype ClassTestSuite a = ClassTestSuite
   { className :: String
   , laws :: Array (LawTest a)
   }
 
--- | A single law test.
+-- | A single law test for a given type.
 newtype LawTest a = LawTest
   { lawName :: String
   , lawDescription :: LawDescription
