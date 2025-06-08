@@ -22,7 +22,7 @@ newtype ClassTestSuite a = ClassTestSuite
 newtype LawTest a = LawTest
   { lawName :: String
   , lawDescription :: LawDescription
-  , test :: a -> (forall b. (forall p. Testable p => p -> b) -> b)
+  , test :: forall b. (forall p. Testable p => p -> b) -> b
   }
 
 -- | The description of a law, either
