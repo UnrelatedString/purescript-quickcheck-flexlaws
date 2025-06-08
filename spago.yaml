@@ -2,9 +2,10 @@ package:
   name: quickcheck-flexlaws
   description: QuickCheck powered law tests for PureScript's core typeclasses, but with more flexible integration into your testing framework of choice
   dependencies:
-    - prelude
-    - enums
-    - quickcheck
+    - prelude: ">=6.0.0 <7.0.0"
+    - enums: ">=6.0.1 <7.0.0"
+    - quickcheck: ">=8.0.1 <9.0.0"
+    - typelevel-prelude: ">=7.0.0 <8.0.0"
   test:
     main: Test.Main
     dependencies:

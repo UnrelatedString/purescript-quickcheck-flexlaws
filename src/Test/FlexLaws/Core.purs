@@ -2,8 +2,8 @@ module Test.FlexLaws.Core
   ( ClassTestSuite(..)
   , LawTest(..)
   , LawDescription(..)
-  , Arb
-  , Coarb
+  , NeedsArbitrary
+  , NeedsCoarbitrary
   ) where
 
 import Prelude
@@ -13,6 +13,7 @@ import Test.QuickCheck
   , class Testable
   , Gen
   )
+import Type.Row (type (+))
 
 -- | A suite of tests corresponding to the laws of a class,
 -- | for a given type.
@@ -32,8 +33,8 @@ newtype LawTest r a = LawTest
   , test :: forall b. (forall p. Testable p => p -> b) -> Record r -> b
   }
 
-type Arb a r = ( gen :: Gen a | r )
-type Coarb a r = ( cogen :: forall b. Arbitrary b => Gen (a -> b) | Arb a r ) -- and... what if I need an a->a... do I seriously want to do a THIRD one for that... what do I even call it aaaa
+type NeedsArbitrary a r = ( arbitrary :: Gen a | r )
+type NeedsCoarbitrary a r = ( coarbitrary :: forall b. a -> Gen b -> Gen b | r )
 
 -- | The description of a law, either
 -- | as plain text to reproduce faithfully,
