@@ -14,6 +14,8 @@ import Test.QuickCheck
   , Gen
   )
 
+data RichResult -- jakl;ajg;lj;lkj i actually so want to spin this off into another fucking libtrarrrryyyyyy aahaaaaaaaaaaaaaaa with like its own fucked up version of Testable so it comes all the way back around to lambda arguments except maybe it's just a record and the variable namaes can even like.... i don;'t even know where i'm going with this but there needs to be like a GenShow that optionally includes seeds and for functions it's literally just the seed
+
 -- | A suite of tests corresponding to the laws of a class,
 -- | for a given type.
 newtype ClassTestSuite :: forall k. Row Type -> k -> Type
